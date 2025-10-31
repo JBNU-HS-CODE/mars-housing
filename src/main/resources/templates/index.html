@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔴 Mars Dome</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container">
+    <h1>🏠 화성 돔 방 구매</h1>
+
+    <div th:if="${flashMessages != null}">
+        <div th:each="msg : ${flashMessages}" th:class="'flash-message ' + ${msg.category}" th:text="${msg.message}"></div>
+    </div>
+
+    <h2>사용자 정보</h2>
+    <p><strong>UUID:</strong> <span th:text="${userUuid}"></span></p>
+    <p><strong>닉네임:</strong> <span th:text="${userNickname}"></span></p>
+    <p><strong>보유 코인:</strong> 🪙 <span th:text="${userCoupons}"></span>개</p>
+
+    <div style="margin-bottom: 20px;">
+        <form th:action="@{/change-nickname}" method="post" style="display: flex; gap: 10px; align-items: center;">
+            <label>
+                <input type="text" name="nickname" placeholder="새 닉네임 입력 (2자 이상)" required
+                       th:value="${userNickname}"
+                       style="padding: 5px; border-radius: 3px; border: 1px solid #555; background: #222; color: #fff; font-size: 14px;">
+            </label>
+            <button type="submit" class="button buy-btn" style="background-color: #5cb85c;">닉네임 변경</button>
+        </form>
+    </div>
+
+    <hr>
+
+    <h2>🔴 돔 방 보기</h2>
+    <div style="margin-bottom: 10px;">
+        <form th:action="@{/search}" method="get" style="display: flex; gap: 10px; align-items: center; justify-content: center;">
+            <input type="text" name="q" placeholder="방 검색 (ID, 설명, 사이즈)" th:value="${searchQuery}"
+                   style="padding: 5px; border-radius: 3px; border: 1px solid #555; background: #222; color: #fff; font-size: 14px; flex: 1; max-width: 300px;">
+            <button type="submit" class="button buy-btn">검색</button>
+        </form>
+        <p th:if="${searchQuery != null}" style="text-align: center; color: #ffcc00;">
+            검색 결과: "<span th:text="${searchQuery}"></span>" (<span th:text="${rooms.size()}"></span>개 방)
+        </p>
+    </div>
+
+    <div class="zoom-controls" style="text-align: center; margin-bottom: 10px;">
+        <button id="zoom-in" class="button buy-btn" style="background: #28a745;">+</button>
+        <span style="margin: 0 10px; font-size: 14px;">줌: <span id="zoom-level">100%</span></span>
+        <button id="zoom-out" class="button buy-btn" style="background: #dc3545;">-</button>
+        <br><small>또는 마우스 휠로 확대/축소 / 마우스 드래그로 이동</small>
+        <a th:href="@{/users}" class="button" style="background: #6c757d; margin-top: 5px; display: inline-block;">👥 사용자 목록 보기</a>
+    </div>
+
+    <div class="hex-grid-container">
+        <div th:each="roomEntry : ${rooms}">
+            <div th:with="id=${roomEntry.key}, room=${roomEntry.value}"
+                 th:class="'hex hex-' + ${id} + ' hex-q-' + ${room.q} + ' hex-r-' + ${room.r} + ' ' + ${room.size.toLowerCase()} + (room.owner != null ? ' purchased' : '')">
+                <div class="hex-content">
+                    <strong th:text="${id}"></strong><br>
+                    <small style="font-size: 8px;" th:text="${room.size}"></small><br>
+                    <p style="margin: 2px 0; font-size: 9px;" th:text="${#strings.abbreviate(room.desc,15)}"></p>
+
+                    <div th:if="${room.owner != null}">
+                        <p style="color: #ff5555; margin: 3px 0;" th:text="'예약: ' + ${room.ownerNickname}"></p>
+                        <button class="button disabled-btn" disabled>완료</button>
+                    </div>
+                    <div th:if="${room.owner == null}">
+                        <p style="color: #ffcc00; margin: 3px 0;" th:text="'🪙 ' + ${room.price} + ' 코인'"></p>
+                        <form th:action="@{/purchase-room/{roomId}(roomId=${id})}" method="post">
+                            <button type="submit" class="button buy-btn"
+                                    th:disabled="${userCoupons < room.price}">구매</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        window.rooms = [[${roomsJson}]];
+        /*]]>*/
+    </script>
+    <script th:src="@{/js/script.js}"></script>
+</div>
+</body>
+</html>

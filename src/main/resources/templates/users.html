@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👥 사용자 목록 - Mars Dome</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>👥 사용자 목록</h1>
+
+    <h2>현재 사용자: <span th:text="${currentNickname}"></span> (코인: 🪙 <span th:text="${currentCoupons}"></span>개)</h2>
+    <a th:href="@{ / }" class="button" style="background: #007bff;">🏠 메인으로 돌아가기</a>
+
+    <hr>
+
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+        <tr style="background: #333; border: 1px solid #555;">
+            <th style="padding: 10px; text-align: left;">닉네임</th>
+            <th style="padding: 10px; text-align: left;">UUID</th>
+            <th style="padding: 10px; text-align: left;">보유 코인</th>
+            <th style="padding: 10px; text-align: left;">소유 방</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${userList}" style="border: 1px solid #555;">
+            <td style="padding: 10px;" th:text="${user.nickname}"></td>
+            <td style="padding: 10px; font-size: 12px;" th:text="${#strings.substring(user.id,0,8)} + '...'"></td>
+            <td style="padding: 10px;" th:text="'🪙 ' + ${user.coupons} + '개'"></td>
+            <td style="padding: 10px;">
+                        <span th:if="${user.ownedRooms != null and !user.ownedRooms.isEmpty()}"
+                              th:text="${#strings.abbreviate(#lists.join(user.ownedRooms, ', '), 50)}"></span>
+                <span th:if="${user.ownedRooms == null or user.ownedRooms.isEmpty()}">없음</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p style="text-align: center; margin-top: 20px; color: #aaa;">총 사용자 수: <span th:text="${userList.size()}"></span></p>
+</div>
+</body>
+</html>
