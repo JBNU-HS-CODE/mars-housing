@@ -22,7 +22,9 @@ class UserService {
     }
 
     private fun getFile(): File {
-        val file = File("data", fileName)
+        val dir = File("data")
+        if (!dir.exists()) dir.mkdirs()
+        val file = File(dir, fileName)
         if (!file.exists()) file.createNewFile()
         return file
     }

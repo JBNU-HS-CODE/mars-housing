@@ -18,7 +18,10 @@
     <h2>사용자 정보</h2>
     <p><strong>UUID:</strong> <span th:text="${userUuid}"></span></p>
     <p><strong>닉네임:</strong> <span th:text="${userNickname}"></span></p>
-    <p><strong>보유 코인:</strong> 🪙 <span th:text="${userCoupons}"></span>개</p>
+    <p>
+        <strong>보유 마스:</strong> 🪙 <span th:text="${userCoupons}"></span>개
+        <button id="payment-button">+</button>
+    </p>
 
     <div style="margin-bottom: 20px;">
         <form th:action="@{/change-nickname}" method="post" style="display: flex; gap: 10px; align-items: center;">
@@ -56,18 +59,18 @@
     <div class="hex-grid-container">
         <div th:each="roomEntry : ${rooms}">
             <div th:with="id=${roomEntry.key}, room=${roomEntry.value}"
-                 th:class="'hex hex-' + ${id} + ' hex-q-' + ${room.q} + ' hex-r-' + ${room.r} + ' ' + ${room.size.toLowerCase()} + (room.owner != null ? ' purchased' : '')">
+                 th:class="'hex hex-' + ${id} + ' hex-q-' + ${room.q} + ' hex-r-' + ${room.r} + ' ' + ${room.size.toLowerCase()} + (room.ownerIdId != null ? ' purchased' : '')">
                 <div class="hex-content">
                     <strong th:text="${id}"></strong><br>
                     <small style="font-size: 8px;" th:text="${room.size}"></small><br>
                     <p style="margin: 2px 0; font-size: 9px;" th:text="${#strings.abbreviate(room.desc,15)}"></p>
 
-                    <div th:if="${room.owner != null}">
-                        <p style="color: #ff5555; margin: 3px 0;" th:text="'예약: ' + ${room.ownerNickname}"></p>
+                    <div th:if="${room.ownerId != null}">
+                        <p style="color: #ff5555; margin: 3px 0;" th:text="'예약: ' + ${room.ownerIdNickname}"></p>
                         <button class="button disabled-btn" disabled>완료</button>
                     </div>
-                    <div th:if="${room.owner == null}">
-                        <p style="color: #ffcc00; margin: 3px 0;" th:text="'🪙 ' + ${room.price} + ' 코인'"></p>
+                    <div th:if="${room.ownerId == null}">
+                        <p style="color: #ffcc00; margin: 3px 0;" th:text="'🪙 ' + ${room.price} + ' 마스'"></p>
                         <form th:action="@{/purchase-room/{roomId}(roomId=${id})}" method="post">
                             <button type="submit" class="button buy-btn"
                                     th:disabled="${userCoupons < room.price}">구매</button>

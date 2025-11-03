@@ -31,10 +31,16 @@ class RoomService(private val userService: UserService) {
         lock.write {
             try {
                 val file = getFile()
-                if (!file.exists()) file.createNewFile()
-                if (file.readText().isNotBlank()) {
-                    val list: List<Room> = objectMapper.readValue(file, object : TypeReference<List<Room>>() {})
-                    list.forEach { rooms[it.id] = it }
+                val text = file.readText()
+                if (text.isNotBlank()) {
+                    val mapType = object : TypeReference<Map<String, Room>>() {}
+                    val loaded: Map<String, Room> = objectMapper.readValue(text, mapType)
+                    rooms.clear()
+                    loaded.forEach { (id, room) ->
+                        room.id = id
+                        rooms[id] = room
+                    }
+//                    rooms.putAll(loaded)
                 }
             } catch (e: Exception) {
                 println("🚨 rooms.json 읽기 오류: ${e.message}")
@@ -46,7 +52,7 @@ class RoomService(private val userService: UserService) {
         lock.write {
             try {
                 val file = getFile()
-                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, rooms.values.toList())
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, rooms)
             } catch (e: Exception) {
                 println("🚨 rooms.json 쓰기 오류: ${e.message}")
             }

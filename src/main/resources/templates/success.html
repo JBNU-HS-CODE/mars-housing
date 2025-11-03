@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="https://static.toss.im/icons/png/4x/icon-toss-logo.png" />
+    <link rel="stylesheet" th:href="@{/css/toss.css}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>결제 완료 - Mars Coin</title>
+</head>
+
+<body>
+<div class="box_section" style="width: 600px">
+    <img width="100px" src="https://static.toss.im/illusts/check-blue-spot-ending-frame.png" alt=""/>
+    <h2>결제를 완료했어요 🚀</h2>
+
+    <div id="mars-info" class="typography--h3" style="margin-top: 20px; color: #1b64da; font-weight: bold;">
+        <!-- 여기에 MARS 표시됨 -->
+    </div>
+
+    <div class="p-grid typography--p" style="margin-top: 50px">
+        <div class="p-grid-col text--left"><b>결제금액</b></div>
+        <div class="p-grid-col text--right" id="amount"></div>
+    </div>
+    <div class="p-grid typography--p" style="margin-top: 10px">
+        <div class="p-grid-col text--left"><b>주문번호</b></div>
+        <div class="p-grid-col text--right" id="orderId"></div>
+    </div>
+    <div class="p-grid typography--p" style="margin-top: 10px">
+        <div class="p-grid-col text--left"><b>paymentKey</b></div>
+        <div class="p-grid-col text--right" id="paymentKey" style="white-space: initial; width: 250px"></div>
+    </div>
+
+    <div class="p-grid" style="margin-top: 30px">
+        <button class="button p-grid-col5" onclick="location.href='/'">메인으로</button>
+        <button class="button p-grid-col5" onclick="location.href='https://discord.gg/A4fRFXQhRu';" style="background-color: #e8f3ff; color: #1b64da">실시간 문의</button>
+    </div>
+</div>
+
+<div class="box_section" style="width: 600px; text-align: left">
+    <b>Response Data :</b>
+    <div id="response" style="white-space: initial"></div>
+</div>
+
+<script th:src="@{/js/cookies.js}"></script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+
+    async function confirm() {
+        const requestData = {
+            paymentKey: urlParams.get("paymentKey"),
+            orderId: urlParams.get("orderId"),
+            amount: urlParams.get("amount"),
+        };
+
+        const response = await fetch("/confirm", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(requestData),
+        });
+
+        const json = await response.json();
+
+        const userUuid = getCookie("user_uuid") || generateRandomString();
+        if (!response.ok) {
+            // todo: 결제 실패
+            console.log(json);
+            window.location.href = `/fail?message=${json.message}&code=${json.code}`;
+        }
+
+
+        return json;
+    }
+
+    confirm().then(function (data) {
+        document.getElementById("response").innerHTML = `<pre>${JSON.stringify(data, null, 4)}</pre>`;
+        document.getElementById("orderId").textContent = urlParams.get("orderId");
+        document.getElementById("amount").textContent = urlParams.get("amount") + "원";
+        document.getElementById("paymentKey").textContent = urlParams.get("paymentKey");
+
+        // ✅ MARS 코인 표시
+        if (data.mars) {
+            document.getElementById("mars-info").innerHTML = `🪙 <span style="font-size: 1.4em;">${data.mars} MARS</span> 충전 완료`;
+        }
+    });
+</script>
+</body>
+</html>

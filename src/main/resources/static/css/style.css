@@ -50,6 +50,12 @@ a {
     margin-top: 5px;
 }
 
+.payment-button {
+    color: #3182f6;
+    border-radius: 5px;
+    border: none;
+}
+
 :root {
     --side-length: 60px;
     --sqrt3: 1.73205;

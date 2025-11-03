@@ -32,9 +32,11 @@ class RoomController(
     }
 
     @GetMapping("/")
-    fun index(@CookieValue(value = "user_uuid", required = false) uuid: String?,
-              model: Model,
-              response: HttpServletResponse): String {
+    fun index(
+        @CookieValue(value = "user_uuid", required = false) uuid: String?,
+        model: Model,
+        response: HttpServletResponse
+    ): String {
         val user = getOrCreateUser(uuid, response)
         val rooms = roomService.listAllRoomsWithOwnerNicknames()
         model.addAttribute("rooms", rooms)
@@ -46,10 +48,12 @@ class RoomController(
     }
 
     @GetMapping("/search")
-    fun search(@RequestParam("q", required = false) query: String?,
-               @CookieValue(value = "user_uuid", required = false) uuid: String?,
-               model: Model,
-               response: HttpServletResponse): String {
+    fun search(
+        @RequestParam("q", required = false) query: String?,
+        @CookieValue(value = "user_uuid", required = false) uuid: String?,
+        model: Model,
+        response: HttpServletResponse
+    ): String {
         val user = getOrCreateUser(uuid, response)
         val filtered = roomService.searchRooms(query ?: "")
         model.addAttribute("rooms", filtered)
@@ -62,9 +66,11 @@ class RoomController(
     }
 
     @PostMapping("/change-nickname")
-    fun changeNickname(@RequestParam nickname: String,
-                       @CookieValue(value = "user_uuid") uuid: String,
-                       redirect: RedirectAttributes): String {
+    fun changeNickname(
+        @RequestParam nickname: String,
+        @CookieValue(value = "user_uuid") uuid: String,
+        redirect: RedirectAttributes
+    ): String {
         val user = userService.getUser(uuid) ?: return "redirect:/"
         if (nickname.trim().length < 2) {
             redirect.addFlashAttribute("flashMessages", listOf(mapOf("category" to "error", "message" to "닉네임은 두 글자 이상이어야 합니다.")))
@@ -77,9 +83,11 @@ class RoomController(
     }
 
     @PostMapping("/purchase-room/{roomId}")
-    fun purchaseRoom(@PathVariable roomId: String,
-                     @CookieValue(value = "user_uuid") uuid: String,
-                     redirect: RedirectAttributes): String {
+    fun purchaseRoom(
+        @PathVariable roomId: String,
+        @CookieValue(value = "user_uuid") uuid: String,
+        redirect: RedirectAttributes
+    ): String {
         val user = userService.getUser(uuid) ?: return "redirect:/"
         val room = roomService.findById(roomId) ?: run {
             redirect.addFlashAttribute("flashMessages", listOf(mapOf("category" to "error", "message" to "존재하지 않는 방입니다.")))
@@ -93,8 +101,7 @@ class RoomController(
             redirect.addFlashAttribute("flashMessages", listOf(mapOf("category" to "error", "message" to "코인이 부족합니다.")))
             return "redirect:/"
         }
-        room.ownerId = user.id
-        user.coupons -= room.price
+        roomService.purchaseRoom(room.id, user.id)
         roomService.saveRooms()
         userService.saveUsers()
         redirect.addFlashAttribute("flashMessages", listOf(mapOf("category" to "success", "message" to "방 ${room.id} 구매 성공!")))

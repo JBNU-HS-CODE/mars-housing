@@ -1,0 +1,135 @@
+:root {
+    --checkable-size: 20px;
+    --checkable-input-top: 3px;
+    --checkable-input-left: 5px;
+    --checkable-input-width: 14px;
+    --checkable-input-height: 10px;
+    --checkable-input-svg: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.343 4.574l4.243 4.243 7.07-7.071' fill='transparent' stroke-width='2' stroke='%23FFF' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    --checkable-label-text-padding: 8px;
+    --indeterminate-checkable-input-top: 7px;
+    --indeterminate-checkable-input-left: 5px;
+    --indeterminate-checkable-input-width: 14px;
+}
+
+body {
+    background: url('https://static.toss.im/ml-illust/img-back_005.jpg') no-repeat center/cover;
+    margin: 0;
+    font-family: "Toss Product Sans", "Noto Sans KR", "Roboto", "Helvetica Neue", Arial, sans-serif;
+    color: #4e5968;
+    -webkit-font-smoothing: antialiased;
+}
+
+.p {
+    padding: 0;
+    margin: 0;
+    overflow-wrap: break-word;
+}
+
+.h4 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333d4b;
+}
+
+.title {
+    margin: 0 0 4px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #4e5968;
+}
+
+.wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-wrap: balance;
+}
+
+.box_section {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgb(0 0 0 / 3%), 0 6px 6px rgb(0 0 0 / 6%);
+    padding: 40px 30px 50px;
+    margin: 30px 0 50px;
+    color: #333d4b;
+}
+
+.button {
+    display: inline-block;
+    color: #f9fafb;
+    background-color: #3182f6;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2;
+    padding: 11px 16px;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease, color 0.1s ease;
+}
+.button:hover {
+    background-color: #1b64da;
+    color: #fff;
+}
+
+/* checkable controls */
+.checkable {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.checkable + .checkable {
+    margin-top: 12px;
+}
+.checkable--inline {
+    display: inline-flex;
+    margin-right: 18px;
+}
+.checkable__label {
+    padding-left: var(--checkable-size);
+    color: #4e5968;
+    cursor: pointer;
+}
+.checkable__input {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: var(--checkable-size);
+    height: var(--checkable-size);
+    appearance: none;
+    cursor: pointer;
+    background: #fff;
+    border: 2px solid #d1d6db;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+}
+.checkable__input:checked {
+    background: #3182f6 url(var(--checkable-input-svg)) no-repeat center;
+    border-color: #3182f6;
+}
+.checkable__input:focus-visible {
+    outline: 2px solid #a5c8ff;
+    outline-offset: 2px;
+}
+.checkable__input:disabled {
+    background: #f2f4f6;
+    border-color: #e5e8eb;
+    cursor: not-allowed;
+}
+.checkable__label-text {
+    padding-left: var(--checkable-label-text-padding);
+    color: #4e5968;
+}
+.checkable--disabled .checkable__label {
+    color: #b0b8c1;
+    cursor: not-allowed;
+}
