@@ -49,43 +49,52 @@ function updatePan(newX, newY) {
     document.documentElement.style.setProperty('--pan-y', `${currentPanY}px`);
 }
 
-const gridContainer = document.querySelector('.hex-grid-container');
-gridContainer.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    startX = e.clientX - currentPanX;
-    startY = e.clientY - currentPanY;
-    gridContainer.style.cursor = 'grabbing';
-});
-
-gridContainer.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    const newPanX = e.clientX - startX;
-    const newPanY = e.clientY - startY;
-    updatePan(newPanX, newPanY);
-});
-
-gridContainer.addEventListener('mouseup', () => {
-    isDragging = false;
-    gridContainer.style.cursor = 'grab';
-});
-
-gridContainer.addEventListener('mouseleave', () => {
-    isDragging = false;
-    gridContainer.style.cursor = 'default';
-});
-
-document.getElementById('zoom-in').addEventListener('click', () => updateZoom(currentZoom + zoomStep));
-document.getElementById('zoom-out').addEventListener('click', () => updateZoom(currentZoom - zoomStep));
-
-gridContainer.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    const delta = e.deltaY > 0 ? -zoomStep : zoomStep;
-    updateZoom(currentZoom + delta);
-});
-
+// Move DOM queries and event listener setup into load handler to avoid null refs
 window.addEventListener('load', () => {
+    const gridContainer = document.querySelector('.hex-grid-container');
+    if (!gridContainer) {
+        console.warn('hex-grid-container not found');
+        return;
+    }
+
+    gridContainer.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX - currentPanX;
+        startY = e.clientY - currentPanY;
+        gridContainer.style.cursor = 'grabbing';
+    });
+
+    gridContainer.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const newPanX = e.clientX - startX;
+        const newPanY = e.clientY - startY;
+        updatePan(newPanX, newPanY);
+    });
+
+    gridContainer.addEventListener('mouseup', () => {
+        isDragging = false;
+        gridContainer.style.cursor = 'grab';
+    });
+
+    gridContainer.addEventListener('mouseleave', () => {
+        isDragging = false;
+        gridContainer.style.cursor = 'default';
+    });
+
+    const zoomInBtn = document.getElementById('zoom-in');
+    const zoomOutBtn = document.getElementById('zoom-out');
+    if (zoomInBtn) zoomInBtn.addEventListener('click', () => updateZoom(currentZoom + zoomStep));
+    if (zoomOutBtn) zoomOutBtn.addEventListener('click', () => updateZoom(currentZoom - zoomStep));
+
+    gridContainer.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? -zoomStep : zoomStep;
+        updateZoom(currentZoom + delta);
+    });
+
     updateZoom(0.7);
     updateGrid();
     gridContainer.style.cursor = 'grab';
 });
+
 window.addEventListener('resize', updateGrid);

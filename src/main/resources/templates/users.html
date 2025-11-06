@@ -10,7 +10,7 @@
 <div class="container">
     <h1>👥 사용자 목록</h1>
 
-    <h2>현재 사용자: <span th:text="${currentNickname}"></span> (마스: 🪙 <span th:text="${currentCoupons}"></span>개)</h2>
+    <h2>현재 사용자: <span th:text="${currentNickname}"></span> (ARES: 🪙 <span th:text="${currentCoupons}"></span>개)</h2>
     <a th:href="@{ / }" class="button" style="background: #007bff;">🏠 메인으로 돌아가기</a>
 
     <hr>
@@ -20,7 +20,7 @@
         <tr style="background: #333; border: 1px solid #555;">
             <th style="padding: 10px; text-align: left;">닉네임</th>
             <th style="padding: 10px; text-align: left;">UUID</th>
-            <th style="padding: 10px; text-align: left;">보유 마스</th>
+            <th style="padding: 10px; text-align: left;">보유 ARES</th>
             <th style="padding: 10px; text-align: left;">소유 방</th>
         </tr>
         </thead>

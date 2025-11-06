@@ -43,7 +43,9 @@ class RoomController(
         model.addAttribute("userUuid", user.id)
         model.addAttribute("userNickname", user.nickname)
         model.addAttribute("userCoupons", user.coupons)
-        model.addAttribute("roomsJson", roomsServiceJsonString(rooms))
+        // Pass the actual map to the template so Thymeleaf's JS inlining
+        // can render a proper JavaScript object instead of a quoted JSON string.
+        model.addAttribute("roomsJson", rooms)
         return "index"
     }
 
@@ -61,7 +63,8 @@ class RoomController(
         model.addAttribute("userNickname", user.nickname)
         model.addAttribute("userCoupons", user.coupons)
         model.addAttribute("searchQuery", query)
-        model.addAttribute("roomsJson", roomsServiceJsonString(filtered))
+        // Same as above: provide the map directly for JS inlining
+        model.addAttribute("roomsJson", filtered)
         return "index"
     }
 
@@ -135,11 +138,5 @@ class RoomController(
         model.addAttribute("currentCoupons", user.coupons)
 
         return "users"
-    }
-
-
-    private fun roomsServiceJsonString(rooms: Map<String, Room>): String {
-        val mapper = com.fasterxml.jackson.databind.ObjectMapper()
-        return mapper.writeValueAsString(rooms)
     }
 }
