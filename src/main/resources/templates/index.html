@@ -9,7 +9,7 @@
 <body>
 
 <div class="container">
-    <h1>🏠 </h1>
+    <h1>📝 돔 방 구매</h1>
 
     <!--/*@thymesVar id="flashMessages" type=""*/-->
     <div th:if="${flashMessages != null}">
@@ -37,7 +37,7 @@
 
     <hr>
 
-    <h2>🔴 돔 방 보기</h2>
+    <h2>🔴 ROOMS</h2>
     <div style="margin-bottom: 10px;">
         <form th:action="@{/search}" method="get" style="display: flex; gap: 10px; align-items: center; justify-content: center;">
             <label>
@@ -61,9 +61,11 @@
 
     <div class="hex-grid-container">
         <div th:each="roomEntry : ${rooms}">
-            <div th:with="id=${roomEntry.key}, room=${roomEntry.value}" class="hex"
-                 th:classappend="' hex-' + ${id} + ' hex-q-' + ${room.q} + ' hex-r-' + ${room.r} + ' ' + ${room.size.toLowerCase()} + (room.ownerId != null ? ' purchased' : '')">
-                <div class="hex-content">
+            <div th:with="id=${roomEntry.key}, room=${roomEntry.value}"
+                 th:class="'hex ' + (room.ownerId != null ? 'purchased ' : 'available ')
+                + 'hex-' + ${id} + ' hex-q-' + ${room.q} + ' hex-r-' + ${room.r} + ' '
+                + ${room.size.toLowerCase()}">
+            <div class="hex-content">
                     <strong th:text="${id}"></strong><br>
                     <small style="font-size: 8px;" th:text="${room.size}"></small><br>
                     <p style="margin: 2px 0; font-size: 9px;" th:text="${#strings.abbreviate(room.desc,15)}"></p>

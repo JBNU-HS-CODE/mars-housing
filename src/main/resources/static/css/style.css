@@ -8,7 +8,6 @@ body {
 
 a {
     color: azure;
-
 }
 
 .container {
@@ -28,6 +27,7 @@ a {
 }
 .flash-message.error { background-color: #d9534f; }
 .flash-message.success { background-color: #5cb85c; }
+
 .button {
     padding: 8px 12px;
     border: none;
@@ -50,10 +50,20 @@ a {
     margin-top: 5px;
 }
 
-.payment-button {
-    color: #3182f6;
-    border-radius: 5px;
-    border: none;
+#payment-button {
+    padding: 6px 14px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: #3182f6;
+    border: 1px solid #1e5ecb;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+#payment-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(49, 130, 246, 0.6);
 }
 
 :root {
@@ -86,7 +96,6 @@ a {
     width: var(--hex-width);
     height: var(--hex-height);
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
     border: 2px solid #555;
     box-sizing: border-box;
     cursor: pointer;
@@ -96,47 +105,45 @@ a {
     text-align: center;
     font-size: 11px;
     transform: translate(-50%, -50%);
-    transform-origin: center center;
+    transform-origin: center;
     transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
     will-change: transform, box-shadow;
     z-index: 10;
 }
+
 @keyframes sparkle {
     0% { box-shadow: 0 0 5px rgba(255, 204, 0, 0.3); }
     100% { box-shadow: 0 0 10px rgba(255, 204, 0, 0.6); }
 }
 
-/* non-purchased default visuals */
-.hex:not(.purchased) {
-    animation: sparkle 2s infinite alternate;
+.hex.available {
     background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
     border-color: #555;
+    animation: sparkle 2s infinite alternate;
+    cursor: pointer;
 }
 
-/* Hover only applies to non-purchased hexes. Use translate3d for GPU acceleration. */
-.hex:not(.purchased):hover {
+.hex.available:hover {
     transform: translate3d(-50%, -50%, 0) scale(1.08);
-    box-shadow: 0 0 18px rgba(0, 123, 255, 0.45);
+    box-shadow: 0 0 18px rgba(0, 123, 255, 0.6);
     z-index: 50;
 }
 
-/* Purchased styling: explicit and final fallback — if template sets .purchased this will apply */
 .hex.purchased {
-    background: linear-gradient(135deg, #581616, #3d0a0a) !important;
-    border-color: #f00 !important;
+    background: linear-gradient(135deg, #581616, #3d0a0a);
+    border-color: #f00;
     box-shadow: 0 0 8px rgba(255, 0, 0, 0.25);
     opacity: 0.95;
     cursor: default;
-    animation: none !important;
+    animation: none;
 }
+
 .hex.purchased::after {
     content: '🔒';
     position: absolute;
-    top: 5px; right: 5px; font-size: 20px;
-}
-.hex.purchased:hover {
-    transform: translate3d(-50%, -50%, 0);
-    z-index: 20;
+    top: 5px;
+    right: 5px;
+    font-size: 20px;
 }
 
 .hex-content {
@@ -154,7 +161,6 @@ a {
 .hex.small { background: linear-gradient(135deg, #3d3d3d, #2a2a2a); border-color: #aaa; }
 .hex.medium { background: linear-gradient(135deg, #505050, #3d3d3d); border-color: #ccc; }
 .hex.large { background: linear-gradient(135deg, #6a6a6a, #505050); border-color: #ffcc00; animation: none; }
-
 
 @media (max-width: 768px) {
     :root { --side-length: 40px; }
