@@ -90,6 +90,8 @@ class RoomService(private val userService: UserService) {
             val user = userService.getUser(userId) ?: return false
             if (room.ownerId != null || user.coupons < room.price) return false
             room.ownerId = user.id
+            // Set ownerNickname so UI shows the buyer's name immediately
+            room.ownerNickname = user.nickname
             user.coupons -= room.price
             saveRooms()
             userService.saveUsers()

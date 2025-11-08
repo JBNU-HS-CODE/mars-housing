@@ -61,8 +61,8 @@
 
     <div class="hex-grid-container">
         <div th:each="roomEntry : ${rooms}">
-            <div th:with="id=${roomEntry.key}, room=${roomEntry.value}"
-                 th:class="'hex hex-' + ${id} + ' hex-q-' + ${room.q} + ' hex-r-' + ${room.r} + ' ' + ${room.size.toLowerCase()} + (room.ownerId != null ? ' purchased' : '')">
+            <div th:with="id=${roomEntry.key}, room=${roomEntry.value}" class="hex"
+                 th:classappend="' hex-' + ${id} + ' hex-q-' + ${room.q} + ' hex-r-' + ${room.r} + ' ' + ${room.size.toLowerCase()} + (room.ownerId != null ? ' purchased' : '')">
                 <div class="hex-content">
                     <strong th:text="${id}"></strong><br>
                     <small style="font-size: 8px;" th:text="${room.size}"></small><br>
@@ -87,17 +87,9 @@
 
     <script th:inline="javascript">
         /*<![CDATA[*/
-        // Ensure roomsJson works whether controller passed a Map (inlined as JS object)
-        // or a pre-serialized JSON string. Convert to object if needed.
         (function(){
-            const raw = [[${roomsJson}]];
-            try {
-                // If raw is a string, parse it
-                window.rooms = (typeof raw === 'string') ? JSON.parse(raw) : raw || {};
-            } catch (e) {
-                console.error('Failed to parse roomsJson', e);
-                window.rooms = {};
-            }
+            const raw = /*[[${rooms}]]*/ {};
+            window.rooms = raw || {};
         })();
         /*]]>*/
     </script>

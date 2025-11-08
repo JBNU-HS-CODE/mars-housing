@@ -96,17 +96,56 @@ a {
     text-align: center;
     font-size: 11px;
     transform: translate(-50%, -50%);
-    transition: all 0.3s ease;
-    animation: sparkle 2s infinite alternate;
+    transform-origin: center center;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    will-change: transform, box-shadow;
+    z-index: 10;
 }
 @keyframes sparkle {
     0% { box-shadow: 0 0 5px rgba(255, 204, 0, 0.3); }
     100% { box-shadow: 0 0 10px rgba(255, 204, 0, 0.6); }
 }
 
-.hex:hover:not(.purchased) {
-    transform: translate(-50%, -50%) scale(1.1);
-    box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+/* Apply animation and hover effects only to non-purchased hexes */
+.hex:not(.purchased):not(:has(.disabled-btn[disabled])) {
+    animation: sparkle 2s infinite alternate;
+    /* Ensure non-purchased hexes use the default neutral styling even if other rules exist */
+    background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+    border-color: #555;
+}
+
+.hex:not(.purchased):not(:has(.disabled-btn[disabled])):hover {
+    /* Slight scale on hover only for non-purchased hexes */
+    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow: 0 0 18px rgba(0, 123, 255, 0.45);
+    z-index: 50; /* bring hovered hex to front */
+}
+
+/* Purchased styling: primary check is presence of a disabled .disabled-btn (works in modern browsers via :has),
+   fallback to .purchased class for older servers/browsers. */
+.hex:has(.disabled-btn[disabled]),
+.hex.purchased {
+    background: linear-gradient(135deg, #581616, #3d0a0a) !important;
+    border-color: #f00 !important;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.25);
+    opacity: 0.95;
+    cursor: default;
+    animation: none !important;
+}
+
+/* Purchased visuals: lock indicator */
+.hex:has(.disabled-btn[disabled])::after,
+.hex.purchased::after {
+    content: '🔒';
+    position: absolute;
+    top: 5px; right: 5px; font-size: 20px;
+}
+
+/* Prevent purchased hex from scaling on hover */
+.hex:has(.disabled-btn[disabled]):hover,
+.hex.purchased:hover {
+    transform: translate(-50%, -50%);
+    z-index: 20;
 }
 
 .hex-content {
@@ -125,18 +164,6 @@ a {
 .hex.medium { background: linear-gradient(135deg, #505050, #3d3d3d); border-color: #ccc; }
 .hex.large { background: linear-gradient(135deg, #6a6a6a, #505050); border-color: #ffcc00; animation: none; }
 
-.hex.purchased {
-    background: linear-gradient(135deg, #581616, #3d0a0a);
-    border-color: #f00;
-    opacity: 0.8;
-    cursor: default;
-    animation: none;
-}
-.hex.purchased::after {
-    content: '🔒';
-    position: absolute;
-    top: 5px; right: 5px; font-size: 20px;
-}
 
 @media (max-width: 768px) {
     :root { --side-length: 40px; }

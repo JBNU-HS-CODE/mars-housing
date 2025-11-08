@@ -2,7 +2,6 @@ package kr.apo2073.mars.controller
 
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletResponse
-import kr.apo2073.mars.model.Room
 import kr.apo2073.mars.model.User
 import kr.apo2073.mars.service.RoomService
 import kr.apo2073.mars.service.UserService
@@ -23,11 +22,11 @@ class RoomController(
     private fun getOrCreateUser(uuidCookie: String?, response: HttpServletResponse): User {
         val userUuid = try {
             uuidCookie?.let { UUID.fromString(it) } ?: UUID.randomUUID()
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             UUID.randomUUID()
         }
         val user = userService.getOrCreateUser(userUuid.toString(), defaultNickname, defaultCoupons)
-        response.addCookie(Cookie("user_uuid", user.id).apply { maxAge = 60*60*24*365 })
+        response.addCookie(Cookie("user_uuid", user.id).apply { maxAge = 60*60*24*365; path = "/" })
         return user
     }
 
@@ -43,8 +42,7 @@ class RoomController(
         model.addAttribute("userUuid", user.id)
         model.addAttribute("userNickname", user.nickname)
         model.addAttribute("userCoupons", user.coupons)
-        // Pass the actual map to the template so Thymeleaf's JS inlining
-        // can render a proper JavaScript object instead of a quoted JSON string.
+        // Provide the rooms map directly to let Thymeleaf inline it as a JS object
         model.addAttribute("roomsJson", rooms)
         return "index"
     }
@@ -63,7 +61,7 @@ class RoomController(
         model.addAttribute("userNickname", user.nickname)
         model.addAttribute("userCoupons", user.coupons)
         model.addAttribute("searchQuery", query)
-        // Same as above: provide the map directly for JS inlining
+        // Provide the filtered map directly
         model.addAttribute("roomsJson", filtered)
         return "index"
     }
@@ -88,10 +86,13 @@ class RoomController(
     @PostMapping("/purchase-room/{roomId}")
     fun purchaseRoom(
         @PathVariable roomId: String,
-        @CookieValue(value = "user_uuid") uuid: String,
+        @CookieValue(value = "user_uuid", required = false) uuid: String?,
+        response: HttpServletResponse,
         redirect: RedirectAttributes
     ): String {
-        val user = userService.getUser(uuid) ?: return "redirect:/"
+        // Ensure we have a user (and proper cookie path) even if cookie wasn't sent
+        val user = getOrCreateUser(uuid, response)
+
         val room = roomService.findById(roomId) ?: run {
             redirect.addFlashAttribute("flashMessages", listOf(mapOf("category" to "error", "message" to "존재하지 않는 방입니다.")))
             return "redirect:/"
@@ -104,10 +105,17 @@ class RoomController(
             redirect.addFlashAttribute("flashMessages", listOf(mapOf("category" to "error", "message" to "코인이 부족합니다.")))
             return "redirect:/"
         }
-        roomService.purchaseRoom(room.id, user.id)
-        roomService.saveRooms()
-        userService.saveUsers()
-        redirect.addFlashAttribute("flashMessages", listOf(mapOf("category" to "success", "message" to "방 ${room.id} 구매 성공!")))
+
+        val success = roomService.purchaseRoom(room.id, user.id)
+        if (success) {
+            // purchaseRoom already persists rooms and users, but keep safe
+            roomService.saveRooms()
+            userService.saveUsers()
+            redirect.addFlashAttribute("flashMessages", listOf(mapOf("category" to "success", "message" to "방 ${room.id} 구매 성공!")))
+        } else {
+            redirect.addFlashAttribute("flashMessages", listOf(mapOf("category" to "error", "message" to "구매에 실패했습니다. 다시 시도해주세요.")))
+        }
+
         return "redirect:/"
     }
 
