@@ -147,4 +147,39 @@ class RoomController(
 
         return "users"
     }
+
+    @PostMapping("/buy-ares")
+    fun addCoupons(
+        @RequestParam uuid: String,
+        @RequestParam amount: Int,
+        redirect: RedirectAttributes
+    ): String {
+        val user = userService.getUser(uuid)
+
+        if (user == null) {
+            redirect.addFlashAttribute(
+                "flashMessages",
+                listOf(mapOf("category" to "error", "message" to "존재하지 않는 유저입니다."))
+            )
+            return "redirect:/users"
+        }
+
+        if (amount <= 0) {
+            redirect.addFlashAttribute(
+                "flashMessages",
+                listOf(mapOf("category" to "error", "message" to "추가할 금액은 0보다 커야 합니다."))
+            )
+            return "redirect:/users"
+        }
+
+        user.coupons += amount
+        userService.saveUsers()
+
+        redirect.addFlashAttribute(
+            "flashMessages",
+            listOf(mapOf("category" to "success", "message" to "${amount} ARES를 성공적으로 구매 했습니다."))
+        )
+        return "redirect:/users"
+    }
+
 }

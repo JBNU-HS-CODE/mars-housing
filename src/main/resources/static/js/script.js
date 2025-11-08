@@ -92,6 +92,22 @@ window.addEventListener('load', () => {
         updateZoom(currentZoom + delta);
     });
 
+    // Payment button: open checkout in a centered popup window
+    const paymentBtn = document.getElementById('payment-button');
+    if (paymentBtn) {
+        paymentBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const popupWidth = 480;
+            const popupHeight = 700;
+            const left = window.screenX + Math.max(0, (window.innerWidth - popupWidth) / 2);
+            const top = window.screenY + Math.max(0, (window.innerHeight - popupHeight) / 2);
+            const features = `width=${popupWidth},height=${popupHeight},left=${left},top=${top},resizable=yes,scrollbars=yes`;
+            const popup = window.open('/checkout', 'checkoutPopup', features);
+            if (popup) popup.focus();
+            else alert('팝업이 차단되었습니다. 팝업 허용 후 다시 시도하세요.');
+        });
+    }
+
     updateZoom(0.7);
     updateGrid();
     gridContainer.style.cursor = 'grab';

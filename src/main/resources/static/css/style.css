@@ -106,24 +106,21 @@ a {
     100% { box-shadow: 0 0 10px rgba(255, 204, 0, 0.6); }
 }
 
-/* Apply animation and hover effects only to non-purchased hexes */
-.hex:not(.purchased):not(:has(.disabled-btn[disabled])) {
+/* non-purchased default visuals */
+.hex:not(.purchased) {
     animation: sparkle 2s infinite alternate;
-    /* Ensure non-purchased hexes use the default neutral styling even if other rules exist */
     background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
     border-color: #555;
 }
 
-.hex:not(.purchased):not(:has(.disabled-btn[disabled])):hover {
-    /* Slight scale on hover only for non-purchased hexes */
-    transform: translate(-50%, -50%) scale(1.08);
+/* Hover only applies to non-purchased hexes. Use translate3d for GPU acceleration. */
+.hex:not(.purchased):hover {
+    transform: translate3d(-50%, -50%, 0) scale(1.08);
     box-shadow: 0 0 18px rgba(0, 123, 255, 0.45);
-    z-index: 50; /* bring hovered hex to front */
+    z-index: 50;
 }
 
-/* Purchased styling: primary check is presence of a disabled .disabled-btn (works in modern browsers via :has),
-   fallback to .purchased class for older servers/browsers. */
-.hex:has(.disabled-btn[disabled]),
+/* Purchased styling: explicit and final fallback — if template sets .purchased this will apply */
 .hex.purchased {
     background: linear-gradient(135deg, #581616, #3d0a0a) !important;
     border-color: #f00 !important;
@@ -132,19 +129,13 @@ a {
     cursor: default;
     animation: none !important;
 }
-
-/* Purchased visuals: lock indicator */
-.hex:has(.disabled-btn[disabled])::after,
 .hex.purchased::after {
     content: '🔒';
     position: absolute;
     top: 5px; right: 5px; font-size: 20px;
 }
-
-/* Prevent purchased hex from scaling on hover */
-.hex:has(.disabled-btn[disabled]):hover,
 .hex.purchased:hover {
-    transform: translate(-50%, -50%);
+    transform: translate3d(-50%, -50%, 0);
     z-index: 20;
 }
 

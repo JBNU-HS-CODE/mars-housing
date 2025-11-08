@@ -36,6 +36,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("com.google.code.gson:gson:2.13.2")
+    implementation("com.googlecode.json-simple:json-simple:1.1.1")
 }
 
 

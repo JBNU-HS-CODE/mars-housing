@@ -37,10 +37,10 @@
     </div>
 </div>
 
-<div class="box_section" style="width: 600px; text-align: left">
+<!--<div class="box_section" style="width: 600px; text-align: left">
     <b>Response Data :</b>
     <div id="response" style="white-space: initial"></div>
-</div>
+</div>-->
 
 <script th:src="@{/js/cookies.js}"></script>
 <script>
@@ -51,6 +51,8 @@
             paymentKey: urlParams.get("paymentKey"),
             orderId: urlParams.get("orderId"),
             amount: urlParams.get("amount"),
+            customerName: urlParams.get("customerName"),
+            orderName: urlParams.get("orderName"),
         };
 
         const response = await fetch("/confirm", {
@@ -66,6 +68,24 @@
             // todo: 결제 실패
             console.log(json);
             window.location.href = `/fail?message=${json.message}&code=${json.code}`;
+        } else {
+            // todo: 결제 성공
+            const formData = new URLSearchParams();
+            formData.append("uuid", userUuid);
+            formData.append("amount", requestData.orderName);
+
+
+            const response = await fetch("/buy-ares", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+            });
+            if (!response.ok) {
+                alert("서버 요청 실패: " + response.status);
+                return;
+            }
         }
 
 
@@ -73,15 +93,16 @@
     }
 
     confirm().then(function (data) {
-        document.getElementById("response").innerHTML = `<pre>${JSON.stringify(data, null, 4)}</pre>`;
+        // document.getElementById("response").innerHTML = `<pre>${JSON.stringify(data, null, 4)}</pre>`;
         document.getElementById("orderId").textContent = urlParams.get("orderId");
+        // document.getElementById("orderName").textContent = urlParams.get("orderName");
+        const amount=parseInt(urlParams.get("orderName"));
         document.getElementById("amount").textContent = urlParams.get("amount") + "원";
         document.getElementById("paymentKey").textContent = urlParams.get("paymentKey");
 
         // ✅ MARS 코인 표시
-        if (data.mars) {
-            document.getElementById("mars-info").innerHTML = `🪙 <span style="font-size: 1.4em;">${data.mars} MARS</span> 충전 완료`;
-        }
+        if (!amount || isNaN(amount) || amount <= 0) return;
+        document.getElementById("mars-info").innerHTML = `🪙 <span style="font-size: 1.4em;">${amount} MARS</span> 충전 완료`;
     });
 </script>
 </body>
