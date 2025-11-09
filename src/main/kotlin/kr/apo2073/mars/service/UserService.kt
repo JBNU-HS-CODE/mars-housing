@@ -37,8 +37,10 @@ class UserService {
                 val file = getFile()
                 val text = file.readText()
                 if (text.isNotBlank()) {
-                    val list: List<User> =
-                        objectMapper.readValue(text, object : TypeReference<List<User>>() {})
+                    val list: List<User> = objectMapper.readValue(
+                        text,
+                        object : TypeReference<List<User>>() {}
+                    )
                     users.clear()
                     list.forEach { users[it.id] = it }
                 }
@@ -68,7 +70,12 @@ class UserService {
     fun getOrCreateUser(id: String, defaultNickname: String = "Guest_Mars", defaultCoupons: Int = 10): User {
         val user = lock.write {
             users.getOrPut(id) {
-                User(id = id, nickname = defaultNickname, coupons = defaultCoupons)
+                User(
+                    id = id,
+                    nickname = defaultNickname,
+                    coupons = defaultCoupons,
+                    createdAt = System.currentTimeMillis()
+                )
             }
         }
         saveUsers() // write 후 안전하게 저장

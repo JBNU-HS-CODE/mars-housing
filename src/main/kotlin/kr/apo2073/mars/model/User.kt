@@ -1,8 +1,11 @@
 package kr.apo2073.mars.model
 
-data class User(
-    val id: String,
-    var nickname: String,
-    var coupons: Int,
-    val createdAt: Long = System.currentTimeMillis()
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+
+data class User @JsonCreator constructor(
+    @JsonProperty("id") var id: String,
+    @JsonProperty("nickname") var nickname: String,
+    @JsonProperty("coupons") var coupons: Int,
+    @JsonProperty("createdAt") var createdAt: Long
 )

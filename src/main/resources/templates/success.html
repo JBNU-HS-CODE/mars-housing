@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/toss.css}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>결제 완료 - Mars Coin</title>
+    <title>결제 완료 - Project: MARS</title>
 </head>
 
 <body>
@@ -32,8 +32,11 @@
     </div>
 
     <div class="p-grid" style="margin-top: 30px">
-        <button class="button p-grid-col5" onclick="location.href='/'">메인으로</button>
-        <button class="button p-grid-col5" onclick="location.href='https://discord.gg/A4fRFXQhRu';" style="background-color: #e8f3ff; color: #1b64da">실시간 문의</button>
+        <div class="p-grid-col5" style="height: 1px; background-color: #e0e0e0;">
+            <b>이제 팝업창을 닫아도 됩니다. 본 페이지로 이동 후 새로고침을 해주세요</b>
+        </div>
+        <button class="button p-grid-col5" onclick="window.close()">메인으로</button>
+<!--        <button class="button p-grid-col5" onclick="location.href='https://discord.gg/A4fRFXQhRu';" style="background-color: #e8f3ff; color: #1b64da">실시간 문의</button>-->
     </div>
 </div>
 
@@ -51,9 +54,10 @@
             paymentKey: urlParams.get("paymentKey"),
             orderId: urlParams.get("orderId"),
             amount: urlParams.get("amount"),
-            customerName: urlParams.get("customerName"),
-            orderName: urlParams.get("orderName"),
+            orderName: urlParams.get("coins"),
         };
+
+        console.log(requestData)
 
         const response = await fetch("/confirm", {
             method: "POST",
@@ -65,15 +69,13 @@
 
         const userUuid = getCookie("user_uuid") || generateRandomString();
         if (!response.ok) {
-            // todo: 결제 실패
             console.log(json);
             window.location.href = `/fail?message=${json.message}&code=${json.code}`;
         } else {
             // todo: 결제 성공
             const formData = new URLSearchParams();
             formData.append("uuid", userUuid);
-            formData.append("amount", requestData.orderName);
-
+            formData.append("amount", urlParams.get("coins"));
 
             const response = await fetch("/buy-ares", {
                 method: "POST",
@@ -87,8 +89,6 @@
                 return;
             }
         }
-
-
         return json;
     }
 
@@ -96,7 +96,7 @@
         // document.getElementById("response").innerHTML = `<pre>${JSON.stringify(data, null, 4)}</pre>`;
         document.getElementById("orderId").textContent = urlParams.get("orderId");
         // document.getElementById("orderName").textContent = urlParams.get("orderName");
-        const amount=parseInt(urlParams.get("orderName"));
+        const amount=parseInt(urlParams.get("coins"));
         document.getElementById("amount").textContent = urlParams.get("amount") + "원";
         document.getElementById("paymentKey").textContent = urlParams.get("paymentKey");
 

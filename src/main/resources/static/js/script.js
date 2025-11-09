@@ -1,6 +1,28 @@
 const side = 60;
 const sqrt3 = Math.sqrt(3);
 
+// Safety: ensure window.rooms is always a proper object even if URL/session altered the page rendering
+function ensureRoomsObject() {
+    if (typeof window.rooms === 'undefined' || window.rooms === null) {
+        window.rooms = {};
+        return;
+    }
+    // If server rendered rooms as a JSON string for any reason, try to parse it
+    if (typeof window.rooms === 'string') {
+        try {
+            window.rooms = JSON.parse(window.rooms);
+        } catch (e) {
+            // fallback to empty object
+            console.warn('Failed to parse window.rooms string, using empty object', e);
+            window.rooms = {};
+        }
+    }
+    // If it's not an object at this point, normalize to empty object
+    if (typeof window.rooms !== 'object' || Array.isArray(window.rooms)) {
+        window.rooms = {};
+    }
+}
+
 let currentZoom = 0.7;
 const minZoom = 0.5;
 const maxZoom = 3.0;
@@ -12,26 +34,34 @@ let isDragging = false;
 let startX, startY;
 
 function updateGrid() {
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2 - 100; // 헤더 여백
+    try {
+        ensureRoomsObject();
+        const rooms = window.rooms || {};
 
-    Object.keys(window.rooms).forEach(id => {
-        const room = window.rooms[id];
-        const q = room.q;
-        const r = room.r;
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2 - 100; // 헤더 여백
 
-        // Standard flat-top axial to pixel: no manual offset needed
-        const pixelX = side * (sqrt3 * q + (sqrt3 / 2) * r);
-        const pixelY = side * (1.5 * r);
-        const hexClass = `.hex-${id}`;
-        const elem = document.querySelector(hexClass);
-        if (elem) {
-            elem.style.left = `${centerX + pixelX}px`;
-            elem.style.top = `${centerY + pixelY}px`;
-            const dist = Math.abs(q) + Math.abs(r);
-            elem.style.zIndex = 20 - dist;
-        }
-    });
+        Object.keys(rooms).forEach(id => {
+            const room = rooms[id];
+            if (!room) return;
+            const q = room.q;
+            const r = room.r;
+
+            // Standard flat-top axial to pixel: no manual offset needed
+            const pixelX = side * (sqrt3 * q + (sqrt3 / 2) * r);
+            const pixelY = side * (1.5 * r);
+            const hexClass = `.hex-${id}`;
+            const elem = document.querySelector(hexClass);
+            if (elem) {
+                elem.style.left = `${centerX + pixelX}px`;
+                elem.style.top = `${centerY + pixelY}px`;
+                const dist = Math.abs(q) + Math.abs(r);
+                elem.style.zIndex = 20 - dist;
+            }
+        });
+    } catch (err) {
+        console.error('updateGrid failed:', err);
+    }
 }
 
 function updateZoom(zoom) {
@@ -51,6 +81,7 @@ function updatePan(newX, newY) {
 
 // Move DOM queries and event listener setup into load handler to avoid null refs
 window.addEventListener('load', () => {
+    ensureRoomsObject();
     const gridContainer = document.querySelector('.hex-grid-container');
     if (!gridContainer) {
         console.warn('hex-grid-container not found');

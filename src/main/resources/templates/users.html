@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👥 사용자 목록 - Mars Dome</title>
+    <title>👥 사용자 목록 - Project: MARS</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
@@ -30,8 +30,9 @@
             <td style="padding: 10px; font-size: 12px;" th:text="${#strings.substring(user.id,0,8)} + '...'"></td>
             <td style="padding: 10px;" th:text="'🪙 ' + ${user.coupons} + '개'"></td>
             <td style="padding: 10px;">
-                        <span th:if="${user.ownedRooms != null and !user.ownedRooms.isEmpty()}"
-                              th:text="${#strings.abbreviate(#lists.join(user.ownedRooms, ', '), 50)}"></span>
+                <span th:if="${user.ownedRooms != null and !user.ownedRooms.isEmpty()}"
+                      th:text="${#strings.abbreviate(user.ownedRooms.toString(), 50)}"
+                ></span>
                 <span th:if="${user.ownedRooms == null or user.ownedRooms.isEmpty()}">없음</span>
             </td>
         </tr>

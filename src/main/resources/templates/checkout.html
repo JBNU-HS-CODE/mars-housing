@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/toss.css}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>토스 결제 - Mars Dome</title>
+    <title>토스 결제 - Project: MARS</title>
     <script src="https://js.tosspayments.com/v2/standard"></script>
 </head>
 
@@ -67,7 +67,7 @@
             await widgets.requestPayment({
                 orderId: generateRandomString(),
                 orderName: `${coins}`,
-                successUrl: window.location.origin + "/success",
+                successUrl: window.location.origin + "/success?coins=" + coins,
                 failUrl: window.location.origin + "/fail",
                 customerEmail: "customer@example.com",
                 customerName: userUuid,

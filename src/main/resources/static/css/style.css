@@ -42,7 +42,11 @@ a {
     color: white;
     margin-top: 5px;
 }
-.buy-btn:hover:not(:disabled) { transform: scale(1.05); }
+/* Ensure hover scale applies only when the button is not disabled and is interactive */
+.buy-btn:not([disabled]):hover,
+.button:not([disabled]):hover {
+    transform: scale(1.05);
+}
 .disabled-btn {
     background-color: #6c757d;
     color: #ccc;
@@ -129,11 +133,12 @@ a {
     z-index: 50;
 }
 
+/* Make purchased style less dominant and only apply when element actually has .purchased */
 .hex.purchased {
-    background: linear-gradient(135deg, #581616, #3d0a0a);
-    border-color: #f00;
-    box-shadow: 0 0 8px rgba(255, 0, 0, 0.25);
-    opacity: 0.95;
+    background: linear-gradient(135deg, #4b1a1a, #2b0b0b);
+    border-color: #a00;
+    box-shadow: 0 0 6px rgba(255, 0, 0, 0.2);
+    opacity: 0.9;
     cursor: default;
     animation: none;
 }
