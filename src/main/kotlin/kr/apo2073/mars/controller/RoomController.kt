@@ -17,7 +17,7 @@ class RoomController(
     private val userService: UserService
 ) {
     private val defaultNickname = "Guest_Mars"
-    private val defaultCoupons = 10
+    private val defaultCoupons = 1
 
     private fun getOrCreateUser(uuidCookie: String?, response: HttpServletResponse): User {
         val userUuid = try {
