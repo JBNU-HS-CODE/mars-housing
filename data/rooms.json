@@ -55,7 +55,7 @@
     "r" : -1,
     "size" : "Medium",
     "price" : 5,
-    "ownerId" : "bbf647f4-4b05-4478-8780-872d555d9e71",
+    "ownerId" : null,
     "desc" : "표준 스위트",
     "ownerNickname" : "알 수 없는 사용자"
   },
@@ -87,7 +87,7 @@
     "price" : 1,
     "ownerId" : null,
     "desc" : "프리미엄 룸",
-    "ownerNickname" : "알 수 없는 사용자"
+    "ownerNickname" : "Guest_Mars"
   },
   "R110" : {
     "id" : "R110",
@@ -125,9 +125,9 @@
     "r" : -2,
     "size" : "Large",
     "price" : 1,
-    "ownerId" : "ef0598b0-ec9e-4c28-b349-57dcb8f6ba56",
+    "ownerId" : null,
     "desc" : "서쪽 스위트",
-    "ownerNickname" : "Guest_Mars"
+    "ownerNickname" : "알 수 없는 사용자"
   },
   "R114" : {
     "id" : "R114",
@@ -275,7 +275,7 @@
     "r" : -3,
     "size" : "Large",
     "price" : 3,
-    "ownerId" : "09d788d9-0784-41e1-9434-6bb42d45c155",
+    "ownerId" : null,
     "desc" : "외곽 기본",
     "ownerNickname" : "알 수 없는 사용자"
   },
@@ -295,7 +295,7 @@
     "r" : -3,
     "size" : "Medium",
     "price" : 5,
-    "ownerId" : "09d788d9-0784-41e1-9434-6bb42d45c155",
+    "ownerId" : null,
     "desc" : "북동 프리미엄",
     "ownerNickname" : "알 수 없는 사용자"
   },
@@ -315,7 +315,7 @@
     "r" : -3,
     "size" : "Medium",
     "price" : 5,
-    "ownerId" : "09d788d9-0784-41e1-9434-6bb42d45c155",
+    "ownerId" : null,
     "desc" : "북쪽 스위트",
     "ownerNickname" : "알 수 없는 사용자"
   },
@@ -335,7 +335,7 @@
     "r" : -3,
     "size" : "Medium",
     "price" : 1,
-    "ownerId" : "bbf647f4-4b05-4478-8780-872d555d9e71",
+    "ownerId" : null,
     "desc" : "기본 돔 방",
     "ownerNickname" : "알 수 없는 사용자"
   },
@@ -445,7 +445,7 @@
     "r" : -2,
     "size" : "Medium",
     "price" : 3,
-    "ownerId" : "bbf647f4-4b05-4478-8780-872d555d9e71",
+    "ownerId" : null,
     "desc" : "극한 환경 룸",
     "ownerNickname" : "알 수 없는 사용자"
   },
@@ -465,7 +465,7 @@
     "r" : -3,
     "size" : "Large",
     "price" : 3,
-    "ownerId" : "bbf647f4-4b05-4478-8780-872d555d9e71",
+    "ownerId" : null,
     "desc" : "북동 프리미엄",
     "ownerNickname" : "알 수 없는 사용자"
   },
@@ -485,7 +485,7 @@
     "r" : -4,
     "size" : "Medium",
     "price" : 5,
-    "ownerId" : "bbf647f4-4b05-4478-8780-872d555d9e71",
+    "ownerId" : null,
     "desc" : "북쪽 스위트",
     "ownerNickname" : "알 수 없는 사용자"
   },
@@ -495,7 +495,7 @@
     "r" : 4,
     "size" : "Medium",
     "price" : 5,
-    "ownerId" : "09d788d9-0784-41e1-9434-6bb42d45c155",
+    "ownerId" : null,
     "desc" : "남서 기본",
     "ownerNickname" : "알 수 없는 사용자"
   }

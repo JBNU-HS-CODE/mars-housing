@@ -16,9 +16,9 @@
         <h1>🪙 결제</h1>
 
         <!-- 마스 수량 입력 -->
-        <label for="coin-count">구매할 마스 수</label>
+        <label for="coin-count">구매할 ARES 수</label>
         <input id="coin-count" type="number" min="1" value="1" style="width: 100%; padding: 10px; margin: 10px 0;" />
-        <p>💰 결제 금액: <span id="amount-display">1,000</span>원</p>
+        <p>💰 결제 금액: <span id="amount-display">500</span>원</p>
 
         <div id="payment-method"></div>
         <div id="agreement"></div>
@@ -45,7 +45,7 @@
         const tossPayments = TossPayments(clientKey);
         const widgets = tossPayments.widgets({ customerKey });
 
-        let currentAmount = 1000; // 기본 1마스 = 1000원
+        let currentAmount = 500; // 기본 1마스 = 1000원
 
         await widgets.setAmount({ currency: "KRW", value: currentAmount });
         await widgets.renderPaymentMethods({ selector: "#payment-method", variantKey: "DEFAULT" });

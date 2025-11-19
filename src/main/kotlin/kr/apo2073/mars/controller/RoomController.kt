@@ -17,7 +17,7 @@ class RoomController(
     private val userService: UserService
 ) {
     private val defaultNickname = "Guest_Mars"
-    private val defaultCoupons = 1
+    private val defaultCoupons = 2
 
     private fun getOrCreateUser(uuidCookie: String?, response: HttpServletResponse): User {
         val userUuid = try {
@@ -180,6 +180,11 @@ class RoomController(
             listOf(mapOf("category" to "success", "message" to "${amount} ARES를 성공적으로 구매 했습니다."))
         )
         return "redirect:/users"
+    }
+
+    @PostMapping("/info")
+    fun infoPage(): String {
+        return "info"
     }
 
 }
