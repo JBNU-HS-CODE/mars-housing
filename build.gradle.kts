@@ -65,6 +65,6 @@ tasks.shadowJar {
     mergeServiceFiles()
     enabled = true
     manifest {
-        attributes["Main-Class"] = "kr.apo2073.mars.MarsApplicationKt"
+        attributes["Main-Class"] = "kr.apo2073.mars.MarsHousingApplicationKt"
     }
 }
