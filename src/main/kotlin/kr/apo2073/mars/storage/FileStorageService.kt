@@ -15,6 +15,17 @@ class FileStorageService(
     private val mapper: ObjectMapper,
     @Value("\${app.data-dir}") private val dataDirPath: String
 ) {
+    init {
+        val dir = File(dataDirPath)
+        if (!dir.exists()) {
+            dir.mkdirs()
+        }
+
+        // 초기 파일 복사
+        copyResourceIfNotExists("init/users.json")
+        copyResourceIfNotExists("init/rooms.json")
+    }
+
     private val lock = ReentrantReadWriteLock()
 
     private fun file(name: String): File {
@@ -23,6 +34,18 @@ class FileStorageService(
         val f = File(dir, name)
         if (!f.exists()) f.writeText("[]")
         return f
+    }
+
+    private fun copyResourceIfNotExists(path: String) {
+        val target = File("$dataDirPath/${path.substringAfterLast("/")}")
+
+        if (!target.exists()) {
+            javaClass.classLoader.getResourceAsStream(path)?.use { input ->
+                target.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+        }
     }
 
     fun <T> readList(fileName: String, type: TypeReference<List<T>>): List<T> {

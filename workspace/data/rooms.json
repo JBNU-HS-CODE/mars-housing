@@ -1,0 +1,502 @@
+{
+  "R101" : {
+    "id" : "R101",
+    "q" : 0,
+    "r" : 0,
+    "size" : "Small",
+    "price" : 1,
+    "ownerId" : null,
+    "desc" : "외곽 기본",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R102" : {
+    "id" : "R102",
+    "q" : -1,
+    "r" : 0,
+    "size" : "Small",
+    "price" : 3,
+    "ownerId" : null,
+    "desc" : "중앙 업그레이드",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R103" : {
+    "id" : "R103",
+    "q" : -1,
+    "r" : 1,
+    "size" : "Small",
+    "price" : 3,
+    "ownerId" : null,
+    "desc" : "외곽 기본",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R104" : {
+    "id" : "R104",
+    "q" : 0,
+    "r" : -1,
+    "size" : "Medium",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "북동 프리미엄",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R105" : {
+    "id" : "R105",
+    "q" : 0,
+    "r" : 1,
+    "size" : "Large",
+    "price" : 3,
+    "ownerId" : null,
+    "desc" : "기본 돔 방",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R106" : {
+    "id" : "R106",
+    "q" : 1,
+    "r" : -1,
+    "size" : "Medium",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "표준 스위트",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R107" : {
+    "id" : "R107",
+    "q" : 1,
+    "r" : 0,
+    "size" : "Small",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "기본 돔 방",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R108" : {
+    "id" : "R108",
+    "q" : -2,
+    "r" : 0,
+    "size" : "Large",
+    "price" : 3,
+    "ownerId" : null,
+    "desc" : "표준 스위트",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R109" : {
+    "id" : "R109",
+    "q" : -2,
+    "r" : 1,
+    "size" : "Small",
+    "price" : 1,
+    "ownerId" : null,
+    "desc" : "프리미엄 룸",
+    "ownerNickname" : "Guest_Mars"
+  },
+  "R110" : {
+    "id" : "R110",
+    "q" : -2,
+    "r" : 2,
+    "size" : "Large",
+    "price" : 1,
+    "ownerId" : null,
+    "desc" : "남서 기본",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R111" : {
+    "id" : "R111",
+    "q" : -1,
+    "r" : -1,
+    "size" : "Large",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "남서 기본",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R112" : {
+    "id" : "R112",
+    "q" : -1,
+    "r" : 2,
+    "size" : "Medium",
+    "price" : 3,
+    "ownerId" : null,
+    "desc" : "남서 기본",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R113" : {
+    "id" : "R113",
+    "q" : 0,
+    "r" : -2,
+    "size" : "Large",
+    "price" : 1,
+    "ownerId" : null,
+    "desc" : "서쪽 스위트",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R114" : {
+    "id" : "R114",
+    "q" : 0,
+    "r" : 2,
+    "size" : "Small",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "동쪽 기본",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R115" : {
+    "id" : "R115",
+    "q" : 1,
+    "r" : -2,
+    "size" : "Large",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "남서 기본",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R116" : {
+    "id" : "R116",
+    "q" : 1,
+    "r" : 1,
+    "size" : "Large",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "극한 환경 룸",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R117" : {
+    "id" : "R117",
+    "q" : 2,
+    "r" : -2,
+    "size" : "Large",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "기본 돔 방",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R118" : {
+    "id" : "R118",
+    "q" : 2,
+    "r" : -1,
+    "size" : "Small",
+    "price" : 3,
+    "ownerId" : null,
+    "desc" : "서쪽 스위트",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R119" : {
+    "id" : "R119",
+    "q" : 2,
+    "r" : 0,
+    "size" : "Small",
+    "price" : 1,
+    "ownerId" : null,
+    "desc" : "기본 돔 방",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R120" : {
+    "id" : "R120",
+    "q" : -3,
+    "r" : 0,
+    "size" : "Small",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "동쪽 기본",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R121" : {
+    "id" : "R121",
+    "q" : -3,
+    "r" : 1,
+    "size" : "Small",
+    "price" : 1,
+    "ownerId" : null,
+    "desc" : "동쪽 기본",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R122" : {
+    "id" : "R122",
+    "q" : -3,
+    "r" : 2,
+    "size" : "Large",
+    "price" : 1,
+    "ownerId" : null,
+    "desc" : "남쪽 스위트",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R123" : {
+    "id" : "R123",
+    "q" : -3,
+    "r" : 3,
+    "size" : "Medium",
+    "price" : 1,
+    "ownerId" : null,
+    "desc" : "동쪽 기본",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R124" : {
+    "id" : "R124",
+    "q" : -2,
+    "r" : -1,
+    "size" : "Large",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "극한 환경 룸",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R125" : {
+    "id" : "R125",
+    "q" : -2,
+    "r" : 3,
+    "size" : "Large",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "남쪽 스위트",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R126" : {
+    "id" : "R126",
+    "q" : -1,
+    "r" : -2,
+    "size" : "Large",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "표준 스위트",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R127" : {
+    "id" : "R127",
+    "q" : -1,
+    "r" : 3,
+    "size" : "Medium",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "극한 환경 룸",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R128" : {
+    "id" : "R128",
+    "q" : 0,
+    "r" : -3,
+    "size" : "Large",
+    "price" : 3,
+    "ownerId" : null,
+    "desc" : "외곽 기본",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R129" : {
+    "id" : "R129",
+    "q" : 0,
+    "r" : 3,
+    "size" : "Medium",
+    "price" : 1,
+    "ownerId" : null,
+    "desc" : "북쪽 스위트",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R130" : {
+    "id" : "R130",
+    "q" : 1,
+    "r" : -3,
+    "size" : "Medium",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "북동 프리미엄",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R131" : {
+    "id" : "R131",
+    "q" : 1,
+    "r" : 2,
+    "size" : "Medium",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "외곽 기본",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R132" : {
+    "id" : "R132",
+    "q" : 2,
+    "r" : -3,
+    "size" : "Medium",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "북쪽 스위트",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R133" : {
+    "id" : "R133",
+    "q" : 2,
+    "r" : 1,
+    "size" : "Small",
+    "price" : 3,
+    "ownerId" : null,
+    "desc" : "동쪽 기본",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R134" : {
+    "id" : "R134",
+    "q" : 3,
+    "r" : -3,
+    "size" : "Medium",
+    "price" : 1,
+    "ownerId" : null,
+    "desc" : "기본 돔 방",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R135" : {
+    "id" : "R135",
+    "q" : 3,
+    "r" : -2,
+    "size" : "Large",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "동쪽 기본",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R136" : {
+    "id" : "R136",
+    "q" : 3,
+    "r" : -1,
+    "size" : "Medium",
+    "price" : 1,
+    "ownerId" : null,
+    "desc" : "기본 돔 방",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R137" : {
+    "id" : "R137",
+    "q" : 3,
+    "r" : 0,
+    "size" : "Small",
+    "price" : 3,
+    "ownerId" : null,
+    "desc" : "서쪽 스위트",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R138" : {
+    "id" : "R138",
+    "q" : -4,
+    "r" : 0,
+    "size" : "Small",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "표준 스위트",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R139" : {
+    "id" : "R139",
+    "q" : -4,
+    "r" : 1,
+    "size" : "Large",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "기본 돔 방",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R140" : {
+    "id" : "R140",
+    "q" : -4,
+    "r" : 2,
+    "size" : "Medium",
+    "price" : 1,
+    "ownerId" : null,
+    "desc" : "남쪽 스위트",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R141" : {
+    "id" : "R141",
+    "q" : -4,
+    "r" : 3,
+    "size" : "Medium",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "서쪽 스위트",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R142" : {
+    "id" : "R142",
+    "q" : -4,
+    "r" : 4,
+    "size" : "Medium",
+    "price" : 1,
+    "ownerId" : null,
+    "desc" : "북동 프리미엄",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R143" : {
+    "id" : "R143",
+    "q" : -3,
+    "r" : -1,
+    "size" : "Medium",
+    "price" : 3,
+    "ownerId" : null,
+    "desc" : "프리미엄 룸",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R144" : {
+    "id" : "R144",
+    "q" : -3,
+    "r" : 4,
+    "size" : "Large",
+    "price" : 1,
+    "ownerId" : null,
+    "desc" : "북동 프리미엄",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R145" : {
+    "id" : "R145",
+    "q" : -2,
+    "r" : -2,
+    "size" : "Medium",
+    "price" : 3,
+    "ownerId" : null,
+    "desc" : "극한 환경 룸",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R146" : {
+    "id" : "R146",
+    "q" : -2,
+    "r" : 4,
+    "size" : "Medium",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "극한 환경 룸",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R147" : {
+    "id" : "R147",
+    "q" : -1,
+    "r" : -3,
+    "size" : "Large",
+    "price" : 3,
+    "ownerId" : null,
+    "desc" : "북동 프리미엄",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R148" : {
+    "id" : "R148",
+    "q" : -1,
+    "r" : 4,
+    "size" : "Small",
+    "price" : 1,
+    "ownerId" : null,
+    "desc" : "남쪽 스위트",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R149" : {
+    "id" : "R149",
+    "q" : 0,
+    "r" : -4,
+    "size" : "Medium",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "북쪽 스위트",
+    "ownerNickname" : "알 수 없는 사용자"
+  },
+  "R150" : {
+    "id" : "R150",
+    "q" : 0,
+    "r" : 4,
+    "size" : "Medium",
+    "price" : 5,
+    "ownerId" : null,
+    "desc" : "남서 기본",
+    "ownerNickname" : "알 수 없는 사용자"
+  }
+}
