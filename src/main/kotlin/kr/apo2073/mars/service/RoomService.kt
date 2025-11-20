@@ -22,7 +22,7 @@ class RoomService(private val userService: UserService) {
     }
 
     private fun getFile(): File {
-        val file = File("data", fileName)
+        val file = File("/workspace/data", fileName)
         if (!file.exists()) file.createNewFile()
         return file
     }

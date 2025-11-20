@@ -23,7 +23,7 @@ class UserService {
 
     /** 파일 객체 가져오기. 없으면 생성 */
     private fun getFile(): File {
-        val dir = File("data")
+        val dir = File("/workspace/data")
         if (!dir.exists()) dir.mkdirs()
         val file = File(dir, fileName)
         if (!file.exists()) file.createNewFile()
