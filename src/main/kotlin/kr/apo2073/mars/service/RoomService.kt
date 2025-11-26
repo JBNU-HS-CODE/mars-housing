@@ -12,46 +12,42 @@ import kotlin.concurrent.write
 @Service
 class RoomService(private val userService: UserService) {
 
-    private val fileName = "rooms.json"
     private val rooms: MutableMap<String, Room> = mutableMapOf()
     private val lock = ReentrantReadWriteLock()
     private val objectMapper = ObjectMapper()
 
     init {
-        loadRooms()
+        loadDefaultRooms()
     }
 
-    private fun getFile(): File {
-        val file = File("/workspace/data", fileName)
-        if (!file.exists()) file.createNewFile()
-        return file
-    }
-
-    private fun loadRooms() {
+    // 서버 시작 시 리소스에서 초기 JSON 로딩
+    private fun loadDefaultRooms() {
         lock.write {
             try {
-                val file = getFile()
-                val text = file.readText()
-                if (text.isNotBlank()) {
+                val json = javaClass.classLoader
+                    .getResourceAsStream("init/rooms.json")
+                    ?.reader(Charsets.UTF_8)?.readText()
+                    ?: throw Exception("init/rooms.json not found")
+
+                if (json.isNotBlank()) {
                     val mapType = object : TypeReference<Map<String, Room>>() {}
-                    val loaded: Map<String, Room> = objectMapper.readValue(text, mapType)
+                    val loaded: Map<String, Room> = objectMapper.readValue(json, mapType)
                     rooms.clear()
                     loaded.forEach { (id, room) ->
                         room.id = id
                         rooms[id] = room
                     }
-//                    rooms.putAll(loaded)
                 }
             } catch (e: Exception) {
-                println("🚨 rooms.json 읽기 오류: ${e.message}")
+                println("🚨 초기 rooms.json 로딩 오류: ${e.message}")
             }
         }
     }
 
     fun saveRooms() {
-        lock.write {
+        lock.read {
             try {
-                val file = getFile()
+                val file = File("/data/rooms.json")
                 objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, rooms)
             } catch (e: Exception) {
                 println("🚨 rooms.json 쓰기 오류: ${e.message}")
@@ -90,10 +86,8 @@ class RoomService(private val userService: UserService) {
             val user = userService.getUser(userId) ?: return false
             if (room.ownerId != null || user.coupons < room.price) return false
             room.ownerId = user.id
-            // Set ownerNickname so UI shows the buyer's name immediately
             room.ownerNickname = user.nickname
             user.coupons -= room.price
-            saveRooms()
             userService.saveUsers()
             return true
         }

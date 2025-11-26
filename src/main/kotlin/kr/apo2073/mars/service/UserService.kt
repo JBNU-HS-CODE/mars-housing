@@ -21,16 +21,14 @@ class UserService {
         loadUsers()
     }
 
-    /** 파일 객체 가져오기. 없으면 생성 */
     private fun getFile(): File {
-        val dir = File("/workspace/data")
+        val dir = File("/init")
         if (!dir.exists()) dir.mkdirs()
         val file = File(dir, fileName)
         if (!file.exists()) file.createNewFile()
         return file
     }
 
-    /** users.json 로드 */
     private fun loadUsers() {
         lock.write {
             try {
@@ -50,11 +48,10 @@ class UserService {
         }
     }
 
-    /** users.json 저장 */
     fun saveUsers() {
         lock.write {
             try {
-                if (users.isEmpty()) return  // 빈 데이터는 저장하지 않음
+                if (users.isEmpty()) return
                 val file = getFile()
                 objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, users.values.toList())
             } catch (e: Exception) {
@@ -63,10 +60,8 @@ class UserService {
         }
     }
 
-    /** UUID로 유저 조회 */
     fun getUser(id: String): User? = lock.read { users[id] }
 
-    /** 존재하면 조회, 없으면 생성. 생성 시 기본 닉네임/쿠폰 적용 */
     fun getOrCreateUser(id: String, defaultNickname: String = "Guest_Mars", defaultCoupons: Int = 10): User {
         val user = lock.write {
             users.getOrPut(id) {
@@ -78,14 +73,12 @@ class UserService {
                 )
             }
         }
-        saveUsers() // write 후 안전하게 저장
+        saveUsers()
         return user
     }
 
-    /** 모든 유저 리스트 */
     fun listAll(): List<User> = lock.read { users.values.toList() }
 
-    /** 특정 유저에게 쿠폰 추가 */
     fun addCoupons(id: String, amount: Int): Boolean {
         if (amount <= 0) return false
         val user = lock.write { users[id] } ?: return false

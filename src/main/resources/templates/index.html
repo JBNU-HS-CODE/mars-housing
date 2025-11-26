@@ -70,7 +70,7 @@
                     <p style="margin: 2px 0; font-size: 9px;" th:text="${#strings.abbreviate(room.desc,15)}"></p>
 
                     <div th:if="${room.ownerId != null}">
-                        <p style="color: #ff5555; margin: 3px 0;" th:text="'예약: ' + ${room.ownerNickname}"></p>
+                        <p style="color: #ff5555; margin: 3px 0;" th:text="'Owned: ' + ${room.ownerNickname}"></p>
                         <button class="button disabled-btn" disabled>완료</button>
                     </div>
                     <div th:if="${room.ownerId == null}">
