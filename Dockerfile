@@ -4,7 +4,12 @@ LABEL authors="astar"
 
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN ./gradlew clean build --no-daemon
+
+# 권한 부여: gradlew 파일이 실행 가능하도록 설정
+RUN chmod +x gradlew
+
+# WORKDIR을 사용했으므로 상대 경로로 실행합니다.
+RUN ./home/gradle/src/gradlew clean build --no-daemon
 
 # --- 분리선 ---
 
