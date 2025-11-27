@@ -64,7 +64,7 @@
     "q" : 1,
     "r" : 0,
     "size" : "Small",
-    "price" : 5,
+    "price" : 1,
     "ownerId" : null,
     "desc" : "기본 돔 방",
     "ownerNickname" : "알 수 없는 사용자"
@@ -74,7 +74,7 @@
     "q" : -2,
     "r" : 0,
     "size" : "Large",
-    "price" : 3,
+    "price" : 2,
     "ownerId" : null,
     "desc" : "표준 스위트",
     "ownerNickname" : "알 수 없는 사용자"
@@ -84,7 +84,7 @@
     "q" : -2,
     "r" : 1,
     "size" : "Small",
-    "price" : 1,
+    "price" : 3,
     "ownerId" : null,
     "desc" : "프리미엄 룸",
     "ownerNickname" : "Guest_Mars"
@@ -104,7 +104,7 @@
     "q" : -1,
     "r" : -1,
     "size" : "Large",
-    "price" : 5,
+    "price" : 2,
     "ownerId" : null,
     "desc" : "남서 기본",
     "ownerNickname" : "알 수 없는 사용자"
@@ -114,7 +114,7 @@
     "q" : -1,
     "r" : 2,
     "size" : "Medium",
-    "price" : 3,
+    "price" : 2,
     "ownerId" : null,
     "desc" : "남서 기본",
     "ownerNickname" : "알 수 없는 사용자"
@@ -133,7 +133,7 @@
     "id" : "R114",
     "q" : 0,
     "r" : 2,
-    "size" : "Small",
+    "size" : "Large",
     "price" : 5,
     "ownerId" : null,
     "desc" : "동쪽 기본",
@@ -143,8 +143,8 @@
     "id" : "R115",
     "q" : 1,
     "r" : -2,
-    "size" : "Large",
-    "price" : 5,
+    "size" : "Small",
+    "price" : 2,
     "ownerId" : null,
     "desc" : "남서 기본",
     "ownerNickname" : "알 수 없는 사용자"
@@ -153,8 +153,8 @@
     "id" : "R116",
     "q" : 1,
     "r" : 1,
-    "size" : "Large",
-    "price" : 5,
+    "size" : "Small",
+    "price" : 1,
     "ownerId" : null,
     "desc" : "극한 환경 룸",
     "ownerNickname" : "알 수 없는 사용자"
@@ -164,7 +164,7 @@
     "q" : 2,
     "r" : -2,
     "size" : "Large",
-    "price" : 5,
+    "price" : 3,
     "ownerId" : null,
     "desc" : "기본 돔 방",
     "ownerNickname" : "알 수 없는 사용자"
@@ -194,7 +194,7 @@
     "q" : -3,
     "r" : 0,
     "size" : "Small",
-    "price" : 5,
+    "price" : 3,
     "ownerId" : null,
     "desc" : "동쪽 기본",
     "ownerNickname" : "알 수 없는 사용자"
@@ -214,7 +214,7 @@
     "q" : -3,
     "r" : 2,
     "size" : "Large",
-    "price" : 1,
+    "price" : 4,
     "ownerId" : null,
     "desc" : "남쪽 스위트",
     "ownerNickname" : "알 수 없는 사용자"
@@ -224,7 +224,7 @@
     "q" : -3,
     "r" : 3,
     "size" : "Medium",
-    "price" : 1,
+    "price" : 2,
     "ownerId" : null,
     "desc" : "동쪽 기본",
     "ownerNickname" : "알 수 없는 사용자"
@@ -253,8 +253,8 @@
     "id" : "R126",
     "q" : -1,
     "r" : -2,
-    "size" : "Large",
-    "price" : 5,
+    "size" : "Medium",
+    "price" : 4,
     "ownerId" : null,
     "desc" : "표준 스위트",
     "ownerNickname" : "알 수 없는 사용자"
@@ -284,9 +284,9 @@
     "q" : 0,
     "r" : 3,
     "size" : "Medium",
-    "price" : 1,
+    "price" : 2,
     "ownerId" : null,
-    "desc" : "북쪽 스위트",
+    "desc" : "북쪽 기본",
     "ownerNickname" : "알 수 없는 사용자"
   },
   "R130" : {
@@ -314,7 +314,7 @@
     "q" : 2,
     "r" : -3,
     "size" : "Medium",
-    "price" : 5,
+    "price" : 3,
     "ownerId" : null,
     "desc" : "북쪽 스위트",
     "ownerNickname" : "알 수 없는 사용자"
@@ -324,7 +324,7 @@
     "q" : 2,
     "r" : 1,
     "size" : "Small",
-    "price" : 3,
+    "price" : 2,
     "ownerId" : null,
     "desc" : "동쪽 기본",
     "ownerNickname" : "알 수 없는 사용자"
@@ -344,7 +344,7 @@
     "q" : 3,
     "r" : -2,
     "size" : "Large",
-    "price" : 5,
+    "price" : 4,
     "ownerId" : null,
     "desc" : "동쪽 기본",
     "ownerNickname" : "알 수 없는 사용자"
@@ -374,7 +374,7 @@
     "q" : -4,
     "r" : 0,
     "size" : "Small",
-    "price" : 5,
+    "price" : 4,
     "ownerId" : null,
     "desc" : "표준 스위트",
     "ownerNickname" : "알 수 없는 사용자"
@@ -384,7 +384,7 @@
     "q" : -4,
     "r" : 1,
     "size" : "Large",
-    "price" : 5,
+    "price" : 3,
     "ownerId" : null,
     "desc" : "기본 돔 방",
     "ownerNickname" : "알 수 없는 사용자"
@@ -404,9 +404,9 @@
     "q" : -4,
     "r" : 3,
     "size" : "Medium",
-    "price" : 5,
+    "price" : 3,
     "ownerId" : null,
-    "desc" : "서쪽 스위트",
+    "desc" : "서쪽 기본",
     "ownerNickname" : "알 수 없는 사용자"
   },
   "R142" : {
@@ -434,7 +434,7 @@
     "q" : -3,
     "r" : 4,
     "size" : "Large",
-    "price" : 1,
+    "price" : 2,
     "ownerId" : null,
     "desc" : "북동 프리미엄",
     "ownerNickname" : "알 수 없는 사용자"
@@ -444,7 +444,7 @@
     "q" : -2,
     "r" : -2,
     "size" : "Medium",
-    "price" : 3,
+    "price" : 1,
     "ownerId" : null,
     "desc" : "극한 환경 룸",
     "ownerNickname" : "알 수 없는 사용자"
@@ -454,7 +454,7 @@
     "q" : -2,
     "r" : 4,
     "size" : "Medium",
-    "price" : 5,
+    "price" : 2,
     "ownerId" : null,
     "desc" : "극한 환경 룸",
     "ownerNickname" : "알 수 없는 사용자"
@@ -464,7 +464,7 @@
     "q" : -1,
     "r" : -3,
     "size" : "Large",
-    "price" : 3,
+    "price" : 4,
     "ownerId" : null,
     "desc" : "북동 프리미엄",
     "ownerNickname" : "알 수 없는 사용자"
@@ -484,7 +484,7 @@
     "q" : 0,
     "r" : -4,
     "size" : "Medium",
-    "price" : 5,
+    "price" : 4,
     "ownerId" : null,
     "desc" : "북쪽 스위트",
     "ownerNickname" : "알 수 없는 사용자"
@@ -494,7 +494,7 @@
     "q" : 0,
     "r" : 4,
     "size" : "Medium",
-    "price" : 5,
+    "price" : 2,
     "ownerId" : null,
     "desc" : "남서 기본",
     "ownerNickname" : "알 수 없는 사용자"

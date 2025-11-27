@@ -54,7 +54,7 @@
         // 마스 수 변경 시 금액 갱신
         coinInput.addEventListener("input", async () => {
             const coins = parseInt(coinInput.value || "1");
-            currentAmount = coins * 1000;
+            currentAmount = coins * 500;
             if (currentAmount < 0) currentAmount = 0;
             amountDisplay.textContent = currentAmount.toLocaleString();
             await widgets.setAmount({ currency: "KRW", value: currentAmount });
