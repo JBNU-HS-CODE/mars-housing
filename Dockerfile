@@ -2,14 +2,12 @@
 FROM eclipse-temurin:21-jdk-jammy AS builder 
 LABEL authors="astar"
 
-COPY --chown=gradle:gradle . /home/gradle/src
-WORKDIR /home/gradle/src
+COPY . /app
+WORKDIR /app
 
-# 권한 부여: gradlew 파일이 실행 가능하도록 설정
 RUN chmod +x gradlew
 
-# WORKDIR을 사용했으므로 상대 경로로 실행합니다.
-RUN ./home/gradle/src/gradlew clean build --no-daemon
+RUN ./gradlew clean build --no-daemon
 
 # --- 분리선 ---
 
@@ -17,8 +15,6 @@ RUN ./home/gradle/src/gradlew clean build --no-daemon
 FROM eclipse-temurin:21-jre-jammy
 LABEL org.name="astar"
 
-# 빌더 단계에서 생성된 JAR 파일을 복사
-COPY --from=builder /home/gradle/src/build/libs/mars-housing-0.0.1-SNAPSHOT-all.jar app.jar
+COPY --from=builder /app/build/libs/mars-housing-0.0.1-SNAPSHOT-all.jar app.jar
 
-# 애플리케이션 실행
 ENTRYPOINT ["java", "-jar", "/app.jar"]
