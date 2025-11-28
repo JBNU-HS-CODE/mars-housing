@@ -78,12 +78,12 @@ class WidgetController {
 
     @GetMapping("/success")
     fun paymentRequest(request: HttpServletRequest, model: Model): String {
-        return "/success"
+        return "success"
     }
 
     @GetMapping("/checkout")
     fun checkout(request: HttpServletRequest, model: Model): String {
-        return "/checkout"
+        return "checkout"
     }
 
     @GetMapping("/fail")
@@ -94,6 +94,6 @@ class WidgetController {
         model.addAttribute("code", failCode)
         model.addAttribute("message", failMessage)
 
-        return "/fail"
+        return "fail"
     }
 }
