@@ -61,7 +61,7 @@ class RoomController(
         model.addAttribute("searchQuery", query)
         // Provide the filtered map directly
         model.addAttribute("roomsJson", filtered)
-        return "/index"
+        return "index"
     }
 
     @PostMapping("/change-nickname")
@@ -143,7 +143,7 @@ class RoomController(
         model.addAttribute("currentNickname", user.nickname)
         model.addAttribute("currentCoupons", user.coupons)
 
-        return "/users"
+        return "users"
     }
 
     @PostMapping("/buy-ares")
@@ -182,7 +182,7 @@ class RoomController(
 
     @PostMapping("/info")
     fun infoPage(): String {
-        return "/info"
+        return "info"
     }
 
 }
