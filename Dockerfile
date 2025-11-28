@@ -7,7 +7,7 @@ WORKDIR /app
 
 RUN chmod +x gradlew
 
-RUN ./gradlew clean build --no-daemon
+RUN ./gradlew clean bootJar --no-daemon
 
 # --- 분리선 ---
 

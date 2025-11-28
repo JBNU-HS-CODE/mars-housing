@@ -61,6 +61,10 @@ tasks.build {
     dependsOn(tasks.bootJar)
 }
 
+tasks.bootJar {
+    enabled = true
+}
+
 /*
 tasks.shadowJar {
     mergeServiceFiles()

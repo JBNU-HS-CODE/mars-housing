@@ -16,15 +16,13 @@ class RoomController(
     private val roomService: RoomService,
     private val userService: UserService
 ) {
-    private val defaultNickname = "Guest_Mars"
+    private val defaultNickname = "Mars Guest"
     private val defaultCoupons = 2
 
     private fun getOrCreateUser(uuidCookie: String?, response: HttpServletResponse): User {
         val userUuid = try {
             uuidCookie?.let { UUID.fromString(it) } ?: UUID.randomUUID()
-        } catch (_: Exception) {
-            UUID.randomUUID()
-        }
+        } catch (_: Exception) { UUID.randomUUID() }
         val user = userService.getOrCreateUser(userUuid.toString(), defaultNickname, defaultCoupons)
         response.addCookie(Cookie("user_uuid", user.id).apply { maxAge = 60*60*24*365; path = "/" })
         return user
