@@ -11,7 +11,6 @@
 <div class="container">
     <h1>📝 Project; MARS</h1>
 
-    <!--/*@thymesVar id="flashMessages" type=""*/-->
     <div th:if="${flashMessages != null}">
         <div th:each="msg : ${flashMessages}" th:class="'flash-message ' + ${msg.category}" th:text="${msg.message}"></div>
     </div>
@@ -86,11 +85,35 @@
     </div>
     <div style="clear: both;"></div>
 
+    <div id="room-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-btn">&times;</span>
+            <h3 id="modal-room-id"></h3>
+            <div class="modal-body">
+                <div class="modal-image-area">
+                    <img id="modal-image" src="" alt="Room View">
+                </div>
+                <div class="modal-info-area">
+                    <p>✨ **사이즈:** <strong id="modal-size"></strong></p>
+                    <p>💰 **가격:** <span id="modal-price"></span> 🪙 ARES</p>
+                    <p>📝 **설명:** <span id="modal-desc"></span></p>
+
+                    <div id="modal-owner-info" style="margin-top: 15px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script th:inline="javascript">
         /*<![CDATA[*/
         (function(){
+            // 모든 방 데이터
             const raw = /*[[${rooms}]]*/ {};
             window.rooms = raw || {};
+
+            // 사용자 쿠폰 정보 (JS에서 잔액 확인 로직에 사용됨)
+            window.userCoupons = /*[[${userCoupons}]]*/ 0;
         })();
         /*]]>*/
     </script>

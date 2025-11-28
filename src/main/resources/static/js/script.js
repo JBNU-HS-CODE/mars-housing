@@ -17,7 +17,7 @@ function ensureRoomsObject() {
             window.rooms = {};
         }
     }
-    // If it's not an object at this point, normalize to empty object
+    // If it's not an an object at this point, normalize to empty object
     if (typeof window.rooms !== 'object' || Array.isArray(window.rooms)) {
         window.rooms = {};
     }
@@ -38,8 +38,9 @@ function updateGrid() {
         ensureRoomsObject();
         const rooms = window.rooms || {};
 
+        // Grid center based on window size
         const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2 - 100; // 헤더 여백
+        const centerY = window.innerHeight / 2 - 100; // Header offset
 
         Object.keys(rooms).forEach(id => {
             const room = rooms[id];
@@ -47,14 +48,17 @@ function updateGrid() {
             const q = room.q;
             const r = room.r;
 
-            // Standard flat-top axial to pixel: no manual offset needed
+            // Standard flat-top axial to pixel coordinates
             const pixelX = side * (sqrt3 * q + (sqrt3 / 2) * r);
             const pixelY = side * (1.5 * r);
             const hexClass = `.hex-${id}`;
             const elem = document.querySelector(hexClass);
             if (elem) {
+                // Apply calculated position
                 elem.style.left = `${centerX + pixelX}px`;
                 elem.style.top = `${centerY + pixelY}px`;
+
+                // Z-index for overlap management (closer to 0, closer to front)
                 const dist = Math.abs(q) + Math.abs(r);
                 elem.style.zIndex = 20 - dist;
             }
@@ -79,15 +83,45 @@ function updatePan(newX, newY) {
     document.documentElement.style.setProperty('--pan-y', `${currentPanY}px`);
 }
 
-// Move DOM queries and event listener setup into load handler to avoid null refs
+// 이미지 경로를 결정하는 함수 (⚠️ 실제 이미지 파일이 필요합니다.)
+function getRoomImageUrl(size) {
+    // 이미지 파일은 {프로젝트_경로}/images/ 폴더에 있다고 가정합니다.
+    // currentPath는 window.location.pathname 기준으로 찾습니다.
+    const currentPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+    const basePath = currentPath + 'images/';
+    const normalizedSize = size.toLowerCase();
+
+    // 방 크기(small, medium, large)에 따라 이미지를 분기합니다.
+    if (normalizedSize === 'small') return basePath + 'view_small.jpg';
+    if (normalizedSize === 'medium') return basePath + 'view_medium.jpg';
+    if (normalizedSize === 'large') return basePath + 'view_large.jpg';
+
+    // 기본 이미지 경로
+    return basePath + 'view_small.jpg';
+}
+
+
+// --- 페이지 로드 후 실행되는 핵심 로직 ---
 window.addEventListener('load', () => {
     ensureRoomsObject();
+
+    // DOM ELEMENTS
     const gridContainer = document.querySelector('.hex-grid-container');
+    const zoomInBtn = document.getElementById('zoom-in');
+    const zoomOutBtn = document.getElementById('zoom-out');
+    const paymentBtn = document.getElementById('payment-button');
+    const hexElements = document.querySelectorAll('.hex');
+
+    // MODAL ELEMENTS
+    const modal = document.getElementById('room-modal');
+    const closeBtn = document.querySelector('.modal-close-btn');
+
     if (!gridContainer) {
         console.warn('hex-grid-container not found');
         return;
     }
 
+    // 1. GRID DRAG & PAN LOGIC
     gridContainer.addEventListener('mousedown', (e) => {
         isDragging = true;
         startX = e.clientX - currentPanX;
@@ -112,8 +146,7 @@ window.addEventListener('load', () => {
         gridContainer.style.cursor = 'default';
     });
 
-    const zoomInBtn = document.getElementById('zoom-in');
-    const zoomOutBtn = document.getElementById('zoom-out');
+    // 2. ZOOM LOGIC
     if (zoomInBtn) zoomInBtn.addEventListener('click', () => updateZoom(currentZoom + zoomStep));
     if (zoomOutBtn) zoomOutBtn.addEventListener('click', () => updateZoom(currentZoom - zoomStep));
 
@@ -123,8 +156,7 @@ window.addEventListener('load', () => {
         updateZoom(currentZoom + delta);
     });
 
-    // Payment button: open checkout in a centered popup window
-    const paymentBtn = document.getElementById('payment-button');
+    // 3. PAYMENT BUTTON LOGIC
     if (paymentBtn) {
         paymentBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -139,9 +171,95 @@ window.addEventListener('load', () => {
         });
     }
 
+
+    // 4. ROOM DETAIL MODAL LOGIC (통합된 부분)
+
+    // 모달 닫기 이벤트
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    }
+
+    // 배경 클릭 시 모달 닫기
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // 각 방 클릭 이벤트 리스너 추가
+    hexElements.forEach(hex => {
+        hex.addEventListener('click', (e) => {
+            // **주의:** 육각형 내부의 구매 버튼(form)을 클릭하면 모달을 띄우지 않고 폼 제출을 진행합니다.
+            if (e.target.closest('form')) {
+                return;
+            }
+
+            // 방 ID 추출 (예: class="hex hex-100 hex-q-..." 에서 '100' 추출)
+            const classList = Array.from(hex.classList);
+            const roomIdClass = classList.find(c => c.startsWith('hex-'));
+            if (!roomIdClass) return;
+
+            const roomId = roomIdClass.substring(4);
+
+            // HTML에서 받아온 전역 rooms 객체 및 userCoupons 변수 사용
+            const roomData = window.rooms[roomId];
+            const userCoupons = window.userCoupons || 0; // HTML 스크립트에서 초기화된 값
+
+            if (roomData) {
+                // 1. 모달 내용 채우기
+                document.getElementById('modal-room-id').textContent = `[ID ${roomId}] ${roomData.size} 룸 상세 정보`;
+                document.getElementById('modal-size').textContent = roomData.size;
+                document.getElementById('modal-price').textContent = roomData.price.toLocaleString();
+                document.getElementById('modal-desc').textContent = roomData.desc;
+
+                // 2. 이미지 설정
+                document.getElementById('modal-image').src = getRoomImageUrl(roomData.size);
+
+                // 3. 소유자 정보/구매 버튼 동적 생성
+                const ownerInfoDiv = document.getElementById('modal-owner-info');
+                ownerInfoDiv.innerHTML = '';
+
+                if (roomData.ownerId) {
+                    // 소유자가 있을 경우
+                    ownerInfoDiv.innerHTML = `
+                        <p style="color: #ff5555; font-weight: bold;">
+                            ✅ 소유자: ${roomData.ownerNickname}
+                        </p>
+                        <button class="button disabled-btn" disabled>판매 완료된 방</button>
+                    `;
+                } else {
+                    // 소유자가 없을 경우 (구매 가능)
+                    const canAfford = userCoupons >= roomData.price;
+                    // HTML 경로 설정 (루트 경로를 기준으로 다시 설정)
+                    const currentPath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+
+                    ownerInfoDiv.innerHTML = `
+                        <p style="color: #ffcc00; font-weight: bold;">
+                            구매 가능! 지금 바로 소유하세요.
+                        </p>
+                        <form action="${currentPath}purchase-room/${roomId}" method="post" style="margin-top: 10px;">
+                            <button type="submit" class="button buy-btn"
+                                    ${canAfford ? '' : 'disabled'}
+                                    style="width: 100%; background-color: ${canAfford ? '#007bff' : '#6c757d'};">
+                                ${canAfford ? '🚀 구매하기' : `잔액 부족 (필요: ${roomData.price.toLocaleString()} 🪙)`}
+                            </button>
+                        </form>
+                    `;
+                }
+
+                // 4. 모달 표시
+                modal.style.display = 'block';
+            }
+        });
+    });
+
+    // 5. INITIALIZATION
     updateZoom(0.7);
     updateGrid();
     gridContainer.style.cursor = 'grab';
 });
 
+// 6. RESIZE HANDLER
 window.addEventListener('resize', updateGrid);
