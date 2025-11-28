@@ -15,6 +15,6 @@ RUN ./gradlew clean build --no-daemon
 FROM eclipse-temurin:21-jre-jammy
 LABEL org.name="astar"
 
-COPY --from=builder /app/build/libs/mars-housing-0.0.1-SNAPSHOT-all.jar app.jar
+COPY --from=builder /app/build/libs/mars-housing-0.0.1-SNAPSHOT.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "/app.jar"]
